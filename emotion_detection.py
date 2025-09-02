@@ -16,16 +16,31 @@ def emotion_detector(text_to_analyze):
     response = requests.post(url, json=myobj, headers=header)
 
     # Parse the response from the API
-    formatted_response = json.loads(response.text)
+    formatted_response = dict(json.loads(response.text))
 
-    print(type(formatted_response))
-    anger = formatted_response["emotionPredictions"]["anger"]
-    disgust = formatted_response['emotionPredictions']['disgust']
-    fear = formatted_response['emotionPredictions']['fear']
-    joy = formatted_response['emotionPredictions']['joy']
-    sadness = formatted_response['emotionPredictions']['sadness']
+    emotions = {}
+    
+    anger = formatted_response["emotionPredictions"][0]["emotion"]["anger"]
+    emotions["anger"]=anger
 
-    return {'anger':anger,'disgust':disgust,'fear':fear,'joy':joy,'sadness':sadness}
+    disgust = formatted_response['emotionPredictions'][0]["emotion"]['disgust']
+    emotions["digust"]=disgust
+
+    fear = formatted_response['emotionPredictions'][0]["emotion"]['fear']
+    emotions["fear"]=fear
+
+    joy = formatted_response['emotionPredictions'][0]["emotion"]['joy']
+    emotions["joy"]=joy
+
+    sadness = formatted_response['emotionPredictions'][0]["emotion"]['sadness']
+    emotions["sadness"]=sadness
+
+    sorted_emotions = sorted(emotions, key=emotions.get)
+
+    dominant_emotion = sorted_emotions[-1]
+
+    return {'anger':anger,'disgust':disgust,'fear':fear,'joy':joy,'sadness':sadness,'dominant_emotion':dominant_emotion}
+    
 
   
 

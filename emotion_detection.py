@@ -1,4 +1,5 @@
 import requests
+import json
 
 
 def emotion_detector(text_to_analyze):
@@ -14,7 +15,17 @@ def emotion_detector(text_to_analyze):
     # Make a POST request to the API with the payload and headers
     response = requests.post(url, json=myobj, headers=header)
 
-    return (response.text)
+    # Parse the response from the API
+    formatted_response = json.loads(response.text)
+
+    print(type(formatted_response))
+    anger = formatted_response["emotionPredictions"]["anger"]
+    disgust = formatted_response['emotionPredictions']['disgust']
+    fear = formatted_response['emotionPredictions']['fear']
+    joy = formatted_response['emotionPredictions']['joy']
+    sadness = formatted_response['emotionPredictions']['sadness']
+
+    return {'anger':anger,'disgust':disgust,'fear':fear,'joy':joy,'sadness':sadness}
 
   
 

@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request
 
 # Import the sentiment_analyzer function from the package created:
-from SentimentAnalysis.sentiment_analysis import sentiment_analyzer
+from EmotionDetection.emotion_detection import emotion_detector
 
 #Initiate the flask app
 app = Flask("EmotionDetection")

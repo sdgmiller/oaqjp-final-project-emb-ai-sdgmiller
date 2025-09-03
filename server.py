@@ -5,7 +5,7 @@ from flask import Flask, render_template, request
 from EmotionDetection.emotion_detection import emotion_detector
 
 #Initiate the flask app
-app = Flask("EmotionDetection")
+app = Flask(__name__,templat_folder='templates')
 
 @app.route("/emotionDetector")
 def sent_analyzer():

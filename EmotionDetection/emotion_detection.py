@@ -24,7 +24,7 @@ def emotion_detector(text_to_analyze):
     emotions["anger"]=anger
 
     disgust = formatted_response['emotionPredictions'][0]["emotion"]['disgust']
-    emotions["digust"]=disgust
+    emotions["disgust"]=disgust
 
     fear = formatted_response['emotionPredictions'][0]["emotion"]['fear']
     emotions["fear"]=fear

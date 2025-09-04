@@ -15,33 +15,35 @@ def emotion_detector(text_to_analyze):
     # Make a POST request to the API with the payload and headers
     response = requests.post(url, json=myobj, headers=header)
 
-    # Parse the response from the API
-    formatted_response = dict(json.loads(response.text))
-
     emotions = {}
+
+    if response.status_code == 200:
+        
+        formatted_response = dict(json.loads(response.text))
+        
+        anger = formatted_response["emotionPredictions"][0]["emotion"]["anger"]
+        emotions["anger"]=anger
+
+        disgust = formatted_response['emotionPredictions'][0]["emotion"]['disgust']
+        emotions["disgust"]=disgust
+
+        fear = formatted_response['emotionPredictions'][0]["emotion"]['fear']
+        emotions["fear"]=fear
+
+        joy = formatted_response['emotionPredictions'][0]["emotion"]['joy']
+        emotions["joy"]=joy
+
+        sadness = formatted_response['emotionPredictions'][0]["emotion"]['sadness']
+        emotions["sadness"]=sadness
+
+        sorted_emotions = sorted(emotions, key=emotions.get)
+
+        dominant_emotion = sorted_emotions[-1]
+
+        return {'anger':anger,'disgust':disgust,'fear':fear,'joy':joy,'sadness':sadness,'dominant_emotion':dominant_emotion}
     
-    anger = formatted_response["emotionPredictions"][0]["emotion"]["anger"]
-    emotions["anger"]=anger
-
-    disgust = formatted_response['emotionPredictions'][0]["emotion"]['disgust']
-    emotions["disgust"]=disgust
-
-    fear = formatted_response['emotionPredictions'][0]["emotion"]['fear']
-    emotions["fear"]=fear
-
-    joy = formatted_response['emotionPredictions'][0]["emotion"]['joy']
-    emotions["joy"]=joy
-
-    sadness = formatted_response['emotionPredictions'][0]["emotion"]['sadness']
-    emotions["sadness"]=sadness
-
-    sorted_emotions = sorted(emotions, key=emotions.get)
-
-    dominant_emotion = sorted_emotions[-1]
-
-    return {'anger':anger,'disgust':disgust,'fear':fear,'joy':joy,'sadness':sadness,'dominant_emotion':dominant_emotion}
-    
-
+    else:
+        return {'anger':None,'disgust':None,'fear':None,'joy':None,'sadness':None,'dominant_emotion':None}
   
 
 

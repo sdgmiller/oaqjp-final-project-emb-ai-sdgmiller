@@ -5,7 +5,7 @@ from flask import Flask, render_template, request
 from EmotionDetection.emotion_detection import emotion_detector
 
 #Initiate the flask app
-app = Flask(__name__,templat_folder='templates')
+app = Flask(__name__,template_folder='templates')
 
 @app.route("/emotionDetector")
 def sent_analyzer():
@@ -24,7 +24,8 @@ def sent_analyzer():
     dominant_emotion = response['dominant_emotion']
 
     # Return a formatted string with the sentiment label and score
-    return {"anger":anger,"disgust":disgust,"fear":fear,"joy":joy,"sadness":sadness,"dominant_emotion":dominant_emotion}
+    #return {"anger":anger,"disgust":disgust,"fear":fear,"joy":joy,"sadness":sadness,"dominant_emotion":dominant_emotion}
+    return f"For the given  statement, the system response is 'anger': {anger}, 'disgust': {disgust}, 'fear': {fear}, 'joy': {joy} and 'sadness': {sadness}. The dominant emotion is {dominant_emotion}.i"
 
 @app.route("/")
 def render_index_page():
